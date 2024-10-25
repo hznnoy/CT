@@ -5,8 +5,8 @@ public class Main {
 		int a = s.nextInt();
         int b = s.nextInt();
         int x = b % 10;
+        int y = (b%100)/10; 
         int z = b / 100;
-		int y = (b-100*z)/10; 
 
 		System.out.println(a*x);
         System.out.println(a*y);
