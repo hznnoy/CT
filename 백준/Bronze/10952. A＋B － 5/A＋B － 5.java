@@ -4,8 +4,8 @@ import java.util.StringTokenizer;
 public class Main{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
+        StringBuilder sb = new StringBuilder();
+        
         while(true){
             StringTokenizer st = new StringTokenizer(br.readLine()," ");
             int a = Integer.parseInt(st.nextToken());
@@ -13,11 +13,9 @@ public class Main{
             
             if(a ==0 && b == 0){
                 break;
-            }else{
-                bw.write((a+b)+"\n");
             }
+             sb.append((a+b)).append('\n');
         }
-        bw.flush();
-        bw.close(); 
+        System.out.print(sb);
     }
 }
