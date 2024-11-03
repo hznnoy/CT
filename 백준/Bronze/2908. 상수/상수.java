@@ -6,15 +6,9 @@ public class Main{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
         
-        String a = st.nextToken();
-        String b = st.nextToken();
-        int revA = ((a.charAt(2)-'0')*100)+((a.charAt(1)-'0')*10)+(a.charAt(0)-'0');
-        int revB = ((b.charAt(2)-'0')*100)+((b.charAt(1)-'0')*10)+(b.charAt(0)-'0');
+        int A = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
+        int B = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
 
-        if(revA>revB){
-            System.out.print(revA);
-        }else{
-            System.out.print(revB);
-        }     
+        System.out.print(A>B?A:B);   
     }
 }
