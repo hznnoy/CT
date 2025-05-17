@@ -1,43 +1,39 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main{
-	static int n,m;
-	static int cnt = 0;
-	
-	static int[][] arr;
-	static boolean[] check; 
+    static int computer;
+    static int count=0;
 
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		n = Integer.parseInt(br.readLine());
-		m = Integer.parseInt(br.readLine());
-		
-		arr = new int[n+1][n+1];
-		
-		for(int i=0; i<m;i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
-			
-			arr[a][b]=arr[b][a]=1;
-		}
-		
-		check = new boolean[n+1];
-		dfs(1);
-		System.out.print(cnt);
-	}
-	
-	static void dfs(int v) {
-		check[v]=true;
-		
-		for(int i=2; i<=n; i++) {
-			if(check[i]==false && arr[v][i]==1) {
-				cnt++;
-				dfs(i);
-			}
-		}
-		
-	}
+    static boolean[] visited;
+    static boolean[][] graph;
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        computer = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
+        visited = new boolean[computer+1];
+        graph = new boolean[computer+1][computer+1];
+
+        for(int i=0; i<n; i++){
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            graph[x][y]=graph[y][x]=true;
+        }
+
+        dfs(1);
+        System.out.print(count);
+    }
+
+    static void dfs(int start){
+        visited[start]=true;
+
+        for(int i=1;i<=computer;i++) {
+            if(!visited[i] && graph[start][i]){
+                count++;
+                dfs(i);
+            }
+        }
+    }
 }
