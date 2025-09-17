@@ -9,12 +9,7 @@ class Solution {
         
         for(int i=1; i<n+1; i++){
             num++;
-            if(num%3==0) num++;
-            while(String.valueOf(num).contains("3")){
-                num++;
-                if(num%3==0) num++;
-
-            }
+            while(num%3==0 || String.valueOf(num).contains("3")) num++;
             
             hateThree[i] = num;
         }
