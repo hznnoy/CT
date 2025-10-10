@@ -1,26 +1,17 @@
-import java.util.*;
+class Solution {
+    public boolean solution(String s) {
+        if ((s.length() & 1) == 1) return false;
 
-class Solution{
-    public boolean solution(String s){
-        boolean answer = true;
-        Stack stack = new Stack();
-        String[] str = s.split("");
-        
-        for(String c : str){                
-            if(c.equals("(")){
-                stack.push(c);
-            }else if(c.equals(")")){
-                if(stack.empty()){
-                    answer = false;
-                    break;
-                }else{
-                    stack.pop();
-                }
+        int bal = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);   
+            if (c == '(') {
+                bal++;
+            } else { 
+                if (bal == 0) return false;  
+                bal--;
             }
         }
-        
-        if(!stack.empty()) answer = false;
-        
-        return answer;   
+        return bal == 0; 
     }
 }
