@@ -2,36 +2,36 @@ import java.util.*;
 import java.io.*;
 
 public class Main{
-    static int computer;
-    static int count=0;
-
+    static int[][] arr;
     static boolean[] visited;
-    static boolean[][] graph;
+    static int cnt = 0;
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        computer = Integer.parseInt(br.readLine());
-        int n = Integer.parseInt(br.readLine());
-        visited = new boolean[computer+1];
-        graph = new boolean[computer+1][computer+1];
+        int com = Integer.parseInt(br.readLine());
+        int pair = Integer.parseInt(br.readLine());
 
-        for(int i=0; i<n; i++){
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
-            graph[x][y]=graph[y][x]=true;
+        arr = new int[com+1][com+1];
+        visited = new boolean[com+1];
+
+        for(int i=0; i<pair; i++){
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int a= Integer.parseInt(st.nextToken());
+            int b= Integer.parseInt(st.nextToken());
+
+            arr[a][b] = arr[b][a] = 1;
         }
 
         dfs(1);
-        System.out.print(count);
+        
+        System.out.println(cnt);
     }
 
     static void dfs(int start){
-        visited[start]=true;
-
-        for(int i=1;i<=computer;i++) {
-            if(!visited[i] && graph[start][i]){
-                count++;
+        visited[start] = true;
+        for(int i=1; i<arr.length; i++){
+            if(arr[start][i] ==1 && !visited[i]){
+                cnt++;
                 dfs(i);
             }
         }
