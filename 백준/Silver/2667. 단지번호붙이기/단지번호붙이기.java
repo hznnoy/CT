@@ -2,68 +2,70 @@ import java.util.*;
 import java.io.*;
 
 public class Main{
-    static int[][] map;
-    static int n;
-    static Queue<int[]> queue = new LinkedList<>();
+    static int[] dx = {0,0,-1,1};
+    static int[] dy = {-1,1,0,0};
+    static int[] apart;
     static boolean[][] visited;
-    static int[] dx = {-1, 0, 1, 0};
-    static int[] dy = {0, 1, 0, -1};
-
-    static ArrayList<Integer> count = new ArrayList<>();
-    static int houses=0, house=0;
+    static Queue<int[]> q;
+    static int [][] arr;
+    static int N;
+    static int apartNum = 0;
 
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(br.readLine());
+        arr = new int[N][N];
+        visited = new boolean[N][N];
+        q = new LinkedList<>();
 
-        map = new int[n][n];
-        visited = new boolean[n][n];
-        for(int i=0; i<n; i++){
-            String line = br.readLine();
-            for(int j=0; j<n; j++){
-                map[i][j] = line.charAt(j)-'0';
+        apart = new int[N*N];
+
+        for(int i=0; i<N; i++){
+            String line= br.readLine();
+            for(int j=0; j<N; j++){
+                arr[i][j] = line.charAt(j) - '0';
             }
         }
 
-        for(int i=0; i<n; i++){
-            for(int j=0; j<n; j++) {
-                if (map[i][j]==1 && !visited[i][j]){
-                    house=1;
+
+        for(int i=0; i<N; i++){
+            for(int j=0; j<N; j++){
+                if(arr[i][j]==1 && !visited[i][j]) {
+                    apartNum++;
                     bfs(i,j);
-                    houses++;
-                    count.add(house);
                 }
             }
         }
 
-        Collections.sort(count);
+        Arrays.sort(apart);
+        System.out.println(apartNum);
 
-        System.out.println(houses);
-        for(int i:count){
-            System.out.println(i);
+        for(int i=0; i<apart.length; i++){
+            if(apart[i]==0){
+                continue;
+            }else{
+                System.out.println(apart[i]);
+            }
         }
+
     }
 
     static void bfs(int x, int y){
-        queue.add(new int[] {x,y});
-        visited[x][y]=true;
-        int nx=0, ny = 0;
-
-        while(!queue.isEmpty()){
-            int[] temp = queue.poll();
-            int cx = temp[0];
-            int cy = temp[1];
+        q.add(new int[] {x,y});
+        visited[x][y] = true;
+        apart[apartNum]++;
+        
+        while(!q.isEmpty()){
+            int[] cur = q.poll();
 
             for(int i=0; i<4; i++){
-                nx = cx+ dx[i];
-                ny = cy+ dy[i];
-                if(nx>=0 && ny>=0 && nx<n && ny<n){
-                    if(!visited[nx][ny] && map[nx][ny]==1){
-                        visited[nx][ny]=true;
-                        house++;
-                        queue.add(new int[] {nx,ny});
-                    }
+                int nx = cur[0] + dx[i];
+                int ny = cur[1] + dy[i];
 
+                if(nx>=0 && ny>=0 && nx<N && ny<N && !visited[nx][ny] && arr[nx][ny]==1){
+                    q.add(new int[] {nx, ny});
+                    visited[nx][ny] = true;
+                    apart[apartNum]++;
                 }
             }
         }
